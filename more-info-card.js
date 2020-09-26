@@ -52,6 +52,7 @@
         r = o.prototype.html,
         s = (o.prototype.css, ["camera", "configurator"]),
         i = ["input_number", "input_select", "input_text", "scene"];
+    console.info(`hello world`)
     if (customElements.define("more-info-card", class extends o {
             static get properties() {
                 return {
@@ -78,6 +79,9 @@
                 const e = this.hass.states[this.config.entity],
                     t = this.config.entity.split(".")[0],
                     n = void 0 === e.attributes.friendly_name ? e.entity_id.split(".")[1].replace(/_/g, " ") : e.attributes.friendly_name;
+                console.info(`e = ${e}`)
+                console.info(`t = ${t}`)
+                console.info(`n = ${n}`)
                 return r `
     <ha-card
       .header=${this.config.title||n}
@@ -86,7 +90,7 @@
         ${i.includes(t)?r`
               No More Info Available
             `:r`
-            ${s.includes(t)?"":r`
+            ${this.config.exclude_card_content || s.includes(t)?"":r`
                   <state-card-content
                     .stateObj=${e}
                     .hass=${this.hass}
